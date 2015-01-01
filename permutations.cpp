@@ -19,7 +19,6 @@ private:
 
 vector<vector<int> > Solution::permute(vector<int> &orig)
 {
-    int n = 0;
     vector<int> seq(orig.size());
     generate(seq.begin(), seq.end(), [&]{ return n++; });
 	int len = seq.size(), i, j, cnt = 1;
