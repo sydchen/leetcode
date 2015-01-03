@@ -9,9 +9,9 @@ public:
 int Solution::index_of_first_element_in_group_two(int vector[], int left, int right)
 {
     if(left == right)
-  	  return left;
+      return left;
 
-  	int mid = left + (right - left) / 2;
+    int mid = left + (right - left) / 2;
     if(vector[mid] >= vector[0]) {
       return index_of_first_element_in_group_two(vector, mid + 1, right);
     }
@@ -23,10 +23,10 @@ int Solution::index_of_first_element_in_group_two(int vector[], int left, int ri
 int Solution::binary_search(int vector[], int value, int left, int right)
 {
     if(right < left)
-  	  return -1;
+      return -1;
 
-  	int mid = left + (right - left) / 2;
-	int midpoint_value = vector[mid];
+    int mid = left + (right - left) / 2;
+    int midpoint_value = vector[mid];
 
     if(midpoint_value > value) {
       return binary_search(vector, value, left, mid - 1);
@@ -45,7 +45,7 @@ int Solution::find_index_by_value(int vector[], int value, int left, int right)
     int index = index_of_first_element_in_group_two(vector, left, right);
     if(value >= vector[0]) {
       return binary_search(vector, value, left, index - 1);
- 	}
+    }
     else {
       return binary_search(vector, value, index, right);
     }

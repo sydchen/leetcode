@@ -13,22 +13,22 @@ private:
 
 vector<vector<int> > Solution::permuteUnique(vector<int> &num)
 {
-	int len = num.size(), i, j, cnt = 1;
+    int len = num.size(), i, j, cnt = 1;
     sort(num.begin(), num.end());
-	while(1) {
+    while(1) {
         permutations.push_back(num);
-		for(i=len-2;i>=0 && num[i]>=num[i+1];i--)
-			;
-		if(i<0)
-			break;
-		for(j=len-1;j>=0 && num[j]<=num[i];j--)
-			;
-		swap(num[i],num[j]);
+        for(i=len-2;i>=0 && num[i]>=num[i+1];i--)
+            ;
+        if(i<0)
+            break;
+        for(j=len-1;j>=0 && num[j]<=num[i];j--)
+            ;
+        swap(num[i],num[j]);
 
-		for(i++,j=len-1;i<j;i++,j--)
-			swap(num[i],num[j]);
-		cnt++;
-	}
+        for(i++,j=len-1;i<j;i++,j--)
+            swap(num[i],num[j]);
+        cnt++;
+    }
     return permutations;
 }
 

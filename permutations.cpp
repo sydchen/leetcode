@@ -21,21 +21,21 @@ vector<vector<int> > Solution::permute(vector<int> &orig)
 {
     vector<int> seq(orig.size());
     generate(seq.begin(), seq.end(), [&]{ return n++; });
-	int len = seq.size(), i, j, cnt = 1;
-	while(1) {
+    int len = seq.size(), i, j, cnt = 1;
+    while(1) {
         add(seq, orig);
-		for(i=len-2;i>=0 && seq[i]>=seq[i+1];i--)
-			;
-		if(i<0)
-			break;
-		for(j=len-1;j>=0 && seq[j]<=seq[i];j--)
-			;
-		swap(seq[i],seq[j]);
+        for(i=len-2;i>=0 && seq[i]>=seq[i+1];i--)
+            ;
+        if(i<0)
+            break;
+        for(j=len-1;j>=0 && seq[j]<=seq[i];j--)
+            ;
+        swap(seq[i],seq[j]);
 
-		for(i++,j=len-1;i<j;i++,j--)
-			swap(seq[i],seq[j]);
-		cnt++;
-	}
+        for(i++,j=len-1;i<j;i++,j--)
+            swap(seq[i],seq[j]);
+        cnt++;
+    }
     return permutations;
 }
 
