@@ -29,7 +29,7 @@ vector<int> Solution::twoSum(vector<int> &numbers, int target)
     for(int i = 0; i < pairs.size(); i++) {
         a = pairs[i].first;
         b = target - a;
-        auto ib = lower_bound(pairs.begin() + i + 1, pairs.end(), Pair(b, 0), cmp);
+        auto ib = upper_bound(pairs.begin() + i + 1, pairs.end(), Pair(b, 0), cmp);
         auto d = distance(pairs.begin(), ib);
         if(ib->first == b && d < pairs.size()) {
             indices[0] = pairs[i].second + 1, indices[1] = pairs[d].second + 1;

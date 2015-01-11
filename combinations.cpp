@@ -12,7 +12,7 @@ public:
             return total;
         }
         else if (k == 0) {
-            total.push_back(vector<int> (1, 0));
+            total.push_back(vector<int>());
             return total;
         }
 
