@@ -38,5 +38,5 @@ private:
 int main(int argc, const char* argv[])
 {
     Solution s;
-    cout << s.longestPalindrome("xyzabbadef");
+    cout << s.longestPalindrome("xyzabbadef"); // abba
 }

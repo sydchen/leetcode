@@ -1,5 +1,5 @@
-#include <iostream>
 // reference: https://oj.leetcode.com/discuss/21027/sharing-my-straightforward-c-solution-with-explanation
+#include <iostream>
 #include <vector>
 #include <string>
 #include <algorithm>

@@ -1,4 +1,4 @@
-/* https://leetcode.com/discuss/15790/share-my-o-log-min-m-n-solution-with-explanation# */
+/* https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2481/Share-my-O(log(min(mn)))-solution-with-explanation */
 /* i = 1, j = 3 */
 /* 9 */
 /* [3], [7, 8, 9, 10, 11, 12] */
