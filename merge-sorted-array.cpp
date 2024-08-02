@@ -18,7 +18,7 @@ public:
             else
                 nums1[k--] = nums1[m--];
         }
-        // most elements in nums2 are smaller than elements in nums2
+        // most elements in nums2 are smaller than elements in nums1
         // we need to copy smaller elements to nums1
         while(n >= 0)
             nums1[k--] = nums2[n--];
