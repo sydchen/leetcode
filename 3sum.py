@@ -33,13 +33,13 @@ class Solution:
         for set_a, set_b in ((negatives, positives), (positives, negatives)):
             lst = list(set_a.keys())
             length = len(lst)
-            combinations = []
+            permutation = []
             for i in range(0, length):
-                if set_a[lst[i]] > 1: combinations.append((lst[i], lst[i]))
+                if set_a[lst[i]] > 1: permutation.append((lst[i], lst[i])) # ex: (-6, 3, 3) or (6, -3, -3)
                 for j in range(i + 1, length):
-                    combinations.append((lst[i], lst[j]))
+                    permutation.append((lst[i], lst[j]))
 
-            for x, y in combinations:
+            for x, y in permutation:
                 target = x + y
                 if -target in set_b: ans.append(sorted([-target, x, y]))
 
