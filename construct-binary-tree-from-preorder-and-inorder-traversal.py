@@ -16,26 +16,26 @@ class Solution:
 
         root_val = preorder.pop(0)
         root = TreeNode(root_val)
-        
+
         # index = inorder.index(root_val)
         # 結果反而這個版本效能更差, 可能測資不大
         index = inorder_index_map[root_val]
-        
+
         root.left = self.buildTree(preorder, inorder[:index])
         root.right = self.buildTree(preorder, inorder[index + 1:])
-        
+
         return root
 
     def print_tree(self, root: Optional[TreeNode]) -> List[Optional[int]]:
         if not root:
             return []
-        
+
         result = []
         queue = deque([root])
-        
+
         while queue:
             node = queue.popleft()
-            
+
             if node:
                 result.append(node.val)
                 queue.append(node.left)
@@ -46,7 +46,7 @@ class Solution:
         # 移除尾端的 `None`（保持輸出精簡）
         while result and result[-1] is None:
             result.pop()
-        
+
         return result
 
 
