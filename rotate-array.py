@@ -3,16 +3,18 @@ from typing import List
 class Solution:
     def rotate(self, nums: List[int], k: int) -> None:
         n = len(nums)
-        k %= n  # 避免 k 大於 n
-        iter_idx = 0
+        k %= n  # 處理 k 大於 n 的情況
 
-        while k:
-            for i in range(k):
-                nums[iter_idx + i], nums[iter_idx + n - k + i] = nums[iter_idx + n - k + i], nums[iter_idx + i]
+        def reverse(start, end):
+            while start < end:
+                nums[start], nums[end] = nums[end], nums[start]
+                start += 1
+                end -= 1
 
-            n -= k
-            iter_idx += k
-            k %= n
+        reverse(0, n - 1)
+        reverse(0, k - 1)
+        reverse(k, n - 1)
+
 
 s = Solution()
 nums = [1,2,3,4,5,6,7]
