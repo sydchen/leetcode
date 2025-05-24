@@ -1,1 +1,1 @@
-[LeetCode OJ](https://oj.leetcode.com/problems/)
+[Top Interview 150](https://leetcode.com/studyplan/top-interview-150/)
