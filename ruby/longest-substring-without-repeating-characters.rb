@@ -12,7 +12,6 @@ def length_of_longest_substring(s)
     end
   end
 
-  p longest
   longest_len = 0
   current_longest_len = str_len
   for i in 0...str_len do
