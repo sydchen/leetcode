@@ -16,13 +16,13 @@ class Solution:
         for i in range(n):
             heapq.heappush(minHeap, (matrix[i][0], i, 0))
 
-        ans = None
-        for i in range(k):
-            (ans, r, c) = heapq.heappop(minHeap)
-            if c + 1 < n: heapq.heappush(minHeap, (matrix[r][c+1], r, c + 1))
+        for _ in range(k - 1):
+            _, r, c = heapq.heappop(minHeap)
+            if c + 1 < n:
+                heapq.heappush(minHeap, (matrix[r][c + 1], r, c + 1))
 
-        return ans
+        return heapq.heappop(minHeap)[0]
 
-s = Solution();
-# print(s.kthSmallest([[1,5,9],[10,11,13],[12,13,15]], 8))
-print(s.kthSmallest([[-5]], 1))
+s = Solution()
+print(s.kthSmallest([[1,5,9],[10,11,13],[12,13,15]], 8))  # 13
+print(s.kthSmallest([[-5]], 1))                            # -5
