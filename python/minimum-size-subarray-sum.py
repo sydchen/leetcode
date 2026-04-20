@@ -3,14 +3,14 @@ from typing import List
 class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
         n = len(nums)
-        left = total = 0
+        left = sub_sum = 0
         min_size = float('inf')
 
         for right in range(n):
-            total += nums[right]
-            while total >= target:
+            sub_sum += nums[right]
+            while sub_sum >= target:
                 min_size = min(min_size, right - left + 1)
-                total -= nums[left]
+                sub_sum -= nums[left]
                 left += 1
 
         return 0 if min_size == float('inf') else min_size
