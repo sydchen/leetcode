@@ -1,42 +1,61 @@
-/* https://leetcode.com/discuss/49276/c-10-line-solution-easing-understanding */
+#include <algorithm>
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
-struct Interval {
-    int start;
-    int end;
-    Interval() : start(0), end(0) {}
-    Interval(int s, int e) : start(s), end(e) {}
-};
+/*
+Merge Intervals
+
+先依照 interval 的 start 排序，再從左到右合併。
+如果目前 interval 的 start <= merged 最後一段的 end，代表兩段重疊，可以合併。
+否則就新增一段 interval。
+
+時間複雜度：O(n log n)
+空間複雜度：O(n)
+*/
 
 class Solution {
 public:
-    vector<Interval> merge(vector<Interval>& intervals) {
-        vector<Interval> merged;
-        if(intervals.empty())
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        vector<vector<int>> merged;
+        if (intervals.empty()) {
             return merged;
+        }
 
-        sort(intervals.begin(), intervals.end(), [](Interval a, Interval b){return a.start < b.start;});
+        sort(intervals.begin(), intervals.end(), [](const vector<int>& a, const vector<int>& b) {
+            return a[0] < b[0];
+        });
 
         merged.push_back(intervals[0]);
-        for(int i = 1; i < intervals.size(); i++) {
-            if(merged.back().end < intervals[i].start)
+        for (int i = 1; i < intervals.size(); i++) {
+            if (merged.back()[1] < intervals[i][0]) {
                 merged.push_back(intervals[i]);
-            else
-                merged.back().end = max(intervals[i].end, merged.back().end);
+            } else {
+                // 有重疊時，延長最後一段的右邊界。
+                merged.back()[1] = max(merged.back()[1], intervals[i][1]);
+            }
         }
+
         return merged;
     }
 };
 
-int main(int argc, const char* argv[])
-{
-	vector<Interval> intervals { Interval(1, 3), Interval(2, 6), Interval(8, 10), Interval(15, 18) };
-    Solution s;
-    vector<Interval> merged = s.merge(intervals);
+void printIntervals(const vector<vector<int>>& intervals) {
+    for (const auto& interval : intervals) {
+        cout << "[" << interval[0] << "," << interval[1] << "]";
+    }
+    cout << endl;
+}
 
-    for(const auto &m : merged)
-        cout << m.start << " " << m.end <<endl;
+int main() {
+    Solution s;
+
+    vector<vector<int>> intervals1{{1, 3}, {2, 6}, {8, 10}, {15, 18}};
+    vector<vector<int>> intervals2{{1, 4}, {4, 5}};
+
+    printIntervals(s.merge(intervals1));
+    printIntervals(s.merge(intervals2));
+
+    return 0;
 }
