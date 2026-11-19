@@ -5,17 +5,36 @@ class ListNode:
         self.val = val
         self.next = next
 
-# Head Insertion Method
-# head: [1,2,3,4,5], left=2, right=4
-# dummy → 1 → 2 → 3 → 4 → 5
-# prev = 1, cur = 2
-# lopp 1:
-# temp = 3, remove(dummy → 1 → 2 → 4 → 5) then add back(dummy → 1 → 3 → 2 → 4 → 5)
-# loop 2:
-# temp = 4 remove(dummy → 1 → 3 → 2 → 5) and add back(dummy → 1 → 4 → 3 → 2 → 5)
-# final dummy → 1 → 4 → 3 → 2 → 5
 class Solution:
     def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+        dummy = ListNode(0, head)
+        before = dummy
+
+        # 找到反轉區間前一個節點；left 為 1 時就是 dummy。
+        for _ in range(left - 1):
+            before = before.next
+
+        # 原本區間的第一個節點，反轉後會變成尾端。
+        tail = before.next
+        current = tail
+        prev = None
+
+        for _ in range(right - left + 1):
+            next_node = current.next
+            current.next = prev
+            prev = current
+            current = next_node
+
+        # 接回區間前後的節點。
+        before.next = prev
+        tail.next = current
+        return dummy.next
+
+    def reverseBetweenHeadInsertion(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+        # 頭插法：將區間中後面的節點逐一移到區間開頭。
+        # 例如 1 → 2 → 3 → 4 → 5，反轉位置 2 到 4：
+        # 先移動 3：1 → 3 → 2 → 4 → 5
+        # 再移動 4：1 → 4 → 3 → 2 → 5
         if not head or left == right:
             return head  # 如果鏈表為空 或 left == right，不需要反轉
 
