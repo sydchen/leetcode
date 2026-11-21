@@ -17,6 +17,32 @@ class Solution:
 
         return left if left else right  # 否則返回非 None 的子樹
 
+    def lowestCommonAncestorIterative(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        # 記錄每個節點的父節點，直到找到 p 和 q。
+        parent = {root: None}
+        stack = [root]
+
+        while p not in parent or q not in parent:
+            node = stack.pop()
+            if node.left:
+                parent[node.left] = node
+                stack.append(node.left)
+            if node.right:
+                parent[node.right] = node
+                stack.append(node.right)
+
+        # 收集 p 自己和所有祖先。
+        ancestors = set()
+        while p is not None:
+            ancestors.add(p)
+            p = parent[p]
+
+        # 從 q 往上走，第一個共同節點就是最低共同祖先。
+        while q not in ancestors:
+            q = parent[q]
+
+        return q
+
 
 def build_tree_from_list(lst):
     if not lst:

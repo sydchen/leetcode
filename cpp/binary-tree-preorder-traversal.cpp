@@ -1,15 +1,11 @@
 #include <vector>
 #include <iostream>
 
-#ifndef NULL
-#define NULL (0)
-#endif
-
 struct TreeNode {
   int val;
   TreeNode *left;
   TreeNode *right;
-  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
 
 using namespace std;
@@ -17,29 +13,33 @@ using namespace std;
 class Solution {
 public:
     vector<int> preorderTraversal(TreeNode *root) {
-        postorder(root);
+        vector<int> traversals;
+        preorder(root, traversals);
         return traversals;
     }
-    void postorder(TreeNode *node) {
-        if(node == NULL)
-            return;
-        traversals.push_back(node->val);
-        preorderTraversal(node->left);
-        preorderTraversal(node->right);
-    }
+
 private:
-    vector<int> traversals;
+    void preorder(TreeNode *node, vector<int>& traversals) {
+        if (node == nullptr)
+            return;
+
+        // 前序走訪：根節點 → 左子樹 → 右子樹。
+        traversals.push_back(node->val);
+        preorder(node->left, traversals);
+        preorder(node->right, traversals);
+    }
 };
 
 int main()
 {
-    TreeNode *node1 = new TreeNode(3);
-    TreeNode *node2 = new TreeNode(2);
-    TreeNode *root = new TreeNode(1);
-    node2->left = node1;
-    root ->right = node2;
+    TreeNode node1(3);
+    TreeNode node2(2);
+    TreeNode root(1);
+    node2.left = &node1;
+    root.right = &node2;
     Solution s;
-    vector<int> result = s.preorderTraversal(root);
-    copy(result.begin(), result.end(), std::ostream_iterator<int>(std::cout, " "));
-    delete root, node1, node2;
+    vector<int> result = s.preorderTraversal(&root);
+    for (int value : result)
+        cout << value << ' ';
+    cout << '\n';
 }

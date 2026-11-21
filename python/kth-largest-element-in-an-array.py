@@ -21,13 +21,21 @@ index = len(nums) - k
 
 為什麼可行：
 partition 後，pivot 的最終位置已經確定。
-第 k 大只關心 target 那一格，所以每次都能丟掉一半不可能包含答案的範圍。
+下一輪只搜尋包含 target 的區間，能排除多少元素取決於 pivot 的位置。
 
-時間複雜度：平均 O(n)，最差 O(n^2)
-空間複雜度：O(1)
+三種解法比較
+- Solution（雙向 Quickselect）原地重排 nums，額外空間 O(1)。元素互異時，
+  隨機選 pivot 的期望時間為 O(n)，最壞為 O(n^2)。例如所有值都相同且 k = 1，
+  每輪只能排除一個元素。
+- Solution2（三向 Quickselect）也會原地重排 nums，額外空間 O(1)，
+  期望時間 O(n)，最壞 O(n^2)。相同值集中在一段，target 落在該段就能直接回傳。
+- Solution3（min-heap）依序讀取 nums 並保留目前最大的 k 個元素，原陣列順序不變。
+  最壞時間 O(n log(k + 1))，額外空間 O(k)。適合 k 較小或資料逐筆到達的情況。
+  如果所有值都相同，heap 填滿後，剩下的元素只需與堆頂比較。
 '''
 
 import random
+from heapq import heappush, heapreplace
 
 
 class Solution:
@@ -115,6 +123,20 @@ class Solution2:
                 i += 1
 
         return lt, gt
+
+
+class Solution3:
+    def findKthLargest(self, nums, k):
+        heap = []
+
+        for num in nums:
+            if len(heap) < k:
+                heappush(heap, num)
+            elif num > heap[0]:
+                # 新值進入前 k 名，換掉目前前 k 名中最小的元素。
+                heapreplace(heap, num)
+
+        return heap[0]
 
 
 s = Solution()
